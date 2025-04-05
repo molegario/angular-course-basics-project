@@ -32,6 +32,4 @@ export class AppComponent {
   onSelected(selectedId: string) {
     this.selected.set(selectedId);
   }
-
-
 }
