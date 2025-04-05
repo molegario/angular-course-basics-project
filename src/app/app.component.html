@@ -1,5 +1,72 @@
-<header>
-  <img src="assets/angular-logo.png" alt="The Angular logo: The letter 'A'" />
-  <h1>Let's get started!</h1>
-  <p>Time to learn all about Angular!</p>
-</header>
+<app-header></app-header>
+<main>
+  <ul id="users">
+    <li>
+      <app-user
+        [avatar]="users[0].avatar"
+        [name]="users[0].name"
+        [id]="users[0].id"
+        [selected]="selected"
+        (select)="onSelected($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [avatar]="users[1].avatar"
+        [name]="users[1].name"
+        [id]="users[1].id"
+        [selected]="selected"
+        (select)="onSelected($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [avatar]="users[2].avatar"
+        [name]="users[2].name"
+        [id]="users[2].id"
+        [selected]="selected"
+        (select)="onSelected($event)"
+      />
+    </li>
+    <li>
+      <app-user
+        [avatar]="users[3].avatar"
+        [name]="users[3].name"
+        [id]="users[3].id"
+        [selected]="selected"
+        (select)="onSelected($event)"
+      />
+    </li>
+  </ul>
+  <div class="main-content">
+    <!-- <div class="tasks-list-header">
+      <h2>Emily Thompson's Tasks</h2>
+      <button>Add Task</button>
+    </div> -->
+    <tasks-header [selectedUserName]="selectedUser?.name" />
+    <div class="post-container">
+      <h2>Master Angular</h2>
+      <h3>Sept 4th, 2025</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ornare
+        urna nec erat rhoncus dapibus. Aliquam maximus ut dolor id sollicitudin.
+        Etiam sagittis egestas elit, non porta arcu cursus vel. Quisque aliquam
+        elit a congue semper. Sed magna libero, laoreet ac elementum rutrum,
+        placerat eu tortor. Mauris molestie et augue ut elementum. Curabitur
+        justo lorem, finibus sed suscipit nec, maximus ac mi.
+      </p>
+    </div>
+    <div class="post-container">
+      <h2>Master Angular</h2>
+      <h3>Sept 4th, 2025</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ornare
+        urna nec erat rhoncus dapibus. Aliquam maximus ut dolor id sollicitudin.
+        Etiam sagittis egestas elit, non porta arcu cursus vel. Quisque aliquam
+        elit a congue semper. Sed magna libero, laoreet ac elementum rutrum,
+        placerat eu tortor. Mauris molestie et augue ut elementum. Curabitur
+        justo lorem, finibus sed suscipit nec, maximus ac mi.
+      </p>
+    </div>
+  </div>
+</main>

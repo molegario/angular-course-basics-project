@@ -1,0 +1,27 @@
+#taskslist-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: #29193e;
+  border-radius: 6px;
+  width: 100%;
+}
+
+#taskslist-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  display: inline-block;
+}
+
+#taskslist-header button {
+  background-color: #9139fc;
+  color: #241340;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+}
