@@ -1,8 +1,9 @@
 import { Component, computed, signal } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
-import { UserComponent } from './user/user.component';
-import { DUMMY_USERS } from '../dummy-users';
-import { TaskslistHeaderComponent } from './taskslist/tasksheader.component';
+import { User, UserComponent } from './user/user.component';
+import { DUMMY_USERS } from '../assets/dummy-users';
+import { Task, TaskslistComponent } from './taskslist/tasks.component';
+import { DUMMY_TASKS } from '../assets/dummy-tasks';
 
 @Component({
   selector: 'app-root',
@@ -10,25 +11,17 @@ import { TaskslistHeaderComponent } from './taskslist/tasksheader.component';
   imports: [
     HeaderComponent,
     UserComponent,
-    TaskslistHeaderComponent,
+    TaskslistComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  // users = DUMMY_USERS;
-  // selected = DUMMY_USERS[0].id;
+  users = signal<User[]>(DUMMY_USERS);
+  selected = signal<string | undefined>(undefined);
+  selectedUser = computed<User | undefined>(() => this.users().find((user) => user.id === this.selected()));
+  selectedUserTasks = computed<Task[]>(() => DUMMY_TASKS.filter((task) => task.userId === this.selected()));
 
-  // get selectedUser() {
-  //   return this.users.find((user) => user.id === this.selected);
-  // }
-
-  // onSelected(selectedId:  string) {
-  //   this.selected = selectedId;
-  // }
-  users = signal(DUMMY_USERS);
-  selected = signal(DUMMY_USERS[0].id);
-  selectedUser = computed(() => this.users().find((user) => user.id === this.selected()));
   onSelected(selectedId: string) {
     this.selected.set(selectedId);
   }

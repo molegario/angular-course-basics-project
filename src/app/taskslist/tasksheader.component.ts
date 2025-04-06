@@ -8,8 +8,6 @@ import { Component, computed, input } from "@angular/core";
   styleUrls: ["./tasksheader.component.css"],
 })
 export class TaskslistHeaderComponent {
-  selectedUserName = input.required<string | undefined>();
-
-  tasksTitle = computed(() => this.selectedUserName() ? this.selectedUserName() + "'s Tasks" : 'Unknown user');
-  disabledBtn = computed(() => this.selectedUserName() ? false : true);
+  selectedUserName = input.required<string>();
+  tasksTitle = computed(() => this.selectedUserName() + "'s Tasks");
 }

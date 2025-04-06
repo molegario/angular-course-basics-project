@@ -1,5 +1,11 @@
 import { Component, computed, input, output, } from '@angular/core';
 
+export interface User {
+  id: string;
+  name: string;
+  avatar: string;
+}
+
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -8,30 +14,13 @@ import { Component, computed, input, output, } from '@angular/core';
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  // @Input({required: true}) id!:string;
-  // @Input({required: true}) name!:string;
-  // @Input({required: true}) avatar!:string;
-  // @Input({required: true}) selected!: string;
-  id = input.required<string>();
-  name = input.required<string>();
-  avatar = input.required<string>();
-  selected = input.required<string>();
-
-  // @Output() select = new EventEmitter();
+  user = input.required<User>();
+  selected = input.required<string | undefined>();
   select = output<string>();
-
-  // get imagePath() {
-  //   return 'assets/users/' + this.avatar;
-  // }
-
-  imagePath = computed(() => 'assets/users/' + this.avatar());
-
-  // get btnClass() {
-  //   return this.selected === this.id ? 'active' : undefined;
-  // }
-  btnClass = computed(() => (this.selected() === this.id() ? 'active' : undefined));
+  imagePath = computed(() => 'assets/users/' + this.user().avatar);
+  btnClass = computed(() => (this.selected() === this.user().id ? 'active' : undefined));
 
   onSelectUser() {
-    this.select.emit(this.id());
+    this.select.emit(this.user().id);
   }
 }
