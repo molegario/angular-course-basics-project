@@ -12,14 +12,13 @@ export class NewTaskComponent {
   selectedUserId = input.required<string | undefined>();
   selectedUserName = input.required<string | undefined>();
   modalIsOpened = input.required<boolean>();
-
   close = output<void>();
+  addtask = output<Task>();
 
   onClose() {
     this.close.emit();
   }
 
-  addtask = output<Task>();
   addTask(event: SubmitEvent) {
     event.preventDefault();
     const formObject = event.target as HTMLFormElement;
@@ -34,6 +33,4 @@ export class NewTaskComponent {
     });
     this.close.emit();
   }
-
-
 }
