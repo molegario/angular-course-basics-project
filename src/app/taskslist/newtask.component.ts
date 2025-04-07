@@ -1,36 +1,40 @@
-import { Component, input, output, } from "@angular/core";
-import { Task } from "./task.model";
-
+import { Component, Input, output, signal } from '@angular/core';
+import { Task } from './task.model';
+import { FormsModule } from '@angular/forms';
+import { TasksService } from './tasks.service';
 
 @Component({
-  selector: "new-task",
+  selector: 'new-task',
   standalone: true,
-  templateUrl: "./newtask.component.html",
-  styleUrls: ["./newtask.component.css"],
+  imports: [FormsModule],
+  templateUrl: './newtask.component.html',
+  styleUrls: ['./newtask.component.css'],
 })
 export class NewTaskComponent {
-  selectedUserId = input.required<string | undefined>();
-  selectedUserName = input.required<string | undefined>();
-  modalIsOpened = input.required<boolean>();
+  @Input({ required: true }) selectedUserId: string | undefined;
+  @Input({ required: true }) selectedUserName: string | undefined;
+  @Input({ required: true }) modalIsOpened: boolean = false;
   close = output<void>();
-  addtask = output<Task>();
+
+  enteredTitle = signal('');
+  enteredSummary = signal('');
+  enteredDueDate = signal('');
+
+  constructor(private tasksService: TasksService) {}
 
   onClose() {
     this.close.emit();
   }
 
-  addTask(event: SubmitEvent) {
-    event.preventDefault();
-    const formObject = event.target as HTMLFormElement;
-    const formData = new FormData(formObject);
-    this.addtask.emit({
+  addTask() {
+    this.tasksService.addTask({
       id: Math.random().toString(36).substring(2, 9),
-      title: formData.get('taskName') as string,
-      summary: formData.get('taskSummary') as string,
-      dueDate: formData.get('taskDueDate') as string,
-      userId: this.selectedUserId()!,
+      title: this.enteredTitle(),
+      summary: this.enteredSummary(),
+      dueDate: this.enteredDueDate(),
+      userId: this.selectedUserId!,
       completed: false,
     });
-    this.close.emit();
+    this.onClose();
   }
 }

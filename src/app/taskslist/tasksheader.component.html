@@ -1,14 +1,13 @@
-@if (isAddingTask()) {
+@if (isAddingTask) {
 <new-task
-  [selectedUserName]="selectedUserName()"
-  [selectedUserId]="selectedUserId()"
-  [modalIsOpened]="isAddingTask()"
+  [selectedUserName]="selectedUserName"
+  [selectedUserId]="selectedUserId"
+  [modalIsOpened]="isAddingTask"
   (close)="onStopAddTask()"
-  (addtask)="onAddTask($event)"
 />
 }
 <header>
-  <h2>{{ tasksTitle() }}</h2>
+  <h2>{{ tasksTitle }}</h2>
   <menu>
     <button (click)="onStartAddTask()">Add Task</button>
   </menu>

@@ -1,28 +1,32 @@
-import { Component, computed, input, signal, } from "@angular/core";
-import { TaskslistHeaderComponent } from "./tasksheader.component";
-import { TaskComponent } from "./task.component";
-import { DUMMY_TASKS } from "../../assets/dummy-tasks";
-import { type Task } from "./task.model";
+import { Component, Input } from '@angular/core';
+import { TaskslistHeaderComponent } from './tasksheader.component';
+import { TaskComponent } from './task.component';
+import { type Task } from './task.model';
+import { TasksService } from './tasks.service';
 
 @Component({
-  selector: "tasks-list",
+  selector: 'tasks-list',
   standalone: true,
-  imports: [
-    TaskslistHeaderComponent,
-    TaskComponent,
-  ],
-  templateUrl: "./tasks.component.html",
-  styleUrls: ["./tasks.component.css"],
+  imports: [TaskslistHeaderComponent, TaskComponent],
+  templateUrl: './tasks.component.html',
+  styleUrls: ['./tasks.component.css'],
 })
 export class TaskslistComponent {
-  allTasks = signal<Task[]>(DUMMY_TASKS.map((task) => ({ ...task, completed: false })));
-  selectedUserId = input.required<string | undefined>();
-  selectedUserName = input.required<string | undefined>();
-  userTasks = computed<Task[]>(() => this.allTasks().filter((task) => task.userId === this.selectedUserId()));
-  onCompleted(deletedId: string) {
-    this.allTasks.set(this.allTasks().filter(task => task.id !== deletedId));
+  constructor(private tasksService: TasksService) {}
+
+  @Input({ required: true }) selectedUserId: string | undefined;
+  @Input({ required: true }) selectedUserName: string | undefined;
+
+  //computed (signal) doesn't work with dependency injection
+  get userTasks() {
+    return this.tasksService.getUserTasks(this.selectedUserId);
   }
+
+  onCompleted(deletedId: string) {
+    this.tasksService.removeTask(deletedId);
+  }
+
   onAddTask(task: Task) {
-    this.allTasks.set([...this.allTasks(), task]);
+    this.tasksService.addTask(task);
   }
 }

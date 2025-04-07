@@ -1,4 +1,4 @@
-import { Component, computed, input, output, signal } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 import { Task } from './task.model';
 import { NewTaskComponent } from './newtask.component';
 
@@ -10,26 +10,27 @@ import { NewTaskComponent } from './newtask.component';
   styleUrls: ['./tasksheader.component.css'],
 })
 export class TaskslistHeaderComponent {
-  selectedUserName = input.required<string>();
-  selectedUserId = input.required<string | undefined>();
-  tasksTitle = computed(() => this.selectedUserName() + "'s Tasks");
-  isAddingTask = signal(false);
+  @Input({ required: true }) selectedUserName: string | undefined;
+  @Input({ required: true }) selectedUserId: string | undefined;
 
-  addTaskRequested = output<Task>();
+  get tasksTitle(): string {
+    return this.selectedUserName + "'s Tasks";
+  }
+
+  isAddingTask = false;
+
+  // addTaskRequested = output<Task>();
 
   onStartAddTask() {
-    this.isAddingTask.set(true);
+    this.isAddingTask = true;
   }
 
   onStopAddTask() {
-    this.isAddingTask.set(false);
+    this.isAddingTask = false;
   }
 
-  onAddTask(task: Task) {
-    this.addTaskRequested.emit(task);
-    // this.isAddingTask.set(false);
-  }
-
-
-
+  // onAddTask(task: Task) {
+  //   this.addTaskRequested.emit(task);
+  //   this.isAddingTask = false;
+  // }
 }

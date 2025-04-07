@@ -1,18 +1,18 @@
 <div class="backdrop" (click)="onClose()"></div>
-<dialog [open]="modalIsOpened()" (close)="onClose()">
-  <form (submit)="addTask($event)" method="dialog">
-    <h2>New Task for {{ selectedUserName() }}</h2>
+<dialog [open]="modalIsOpened" (close)="onClose()">
+  <form (ngSubmit)="addTask()" method="dialog">
+    <h2>New Task for {{ selectedUserName }}</h2>
     <p>
       <label for="taskName">Task Name</label>
-      <input type="text" id="taskName" name="taskName" required>
+      <input type="text" id="taskName" name="taskName" [(ngModel)]="enteredTitle" />
     </p>
     <p>
       <label for="taskDueDate">Task Due Date</label>
-      <input type="date" id="taskDueDate" name="taskDueDate" required>
+      <input type="date" id="taskDueDate" name="taskDueDate" [(ngModel)]="enteredDueDate" />
     </p>
     <p>
       <label for="taskSummary">Task Summary</label>
-      <textarea id="taskSummary" name="taskSummary" required></textarea>
+      <textarea id="taskSummary" name="taskSummary" [(ngModel)]="enteredSummary"></textarea>
     </p>
     <div class="actions">
       <button type="submit">Add</button>
