@@ -6,10 +6,20 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class TasksService {
-  private allTasks: Task[] = DUMMY_TASKS.map((task) => ({
-    ...task,
-    completed: false,
-  }));
+  private allTasks: Task[] = [];
+
+  initAllTasks(): void {
+    const storedTasksString = localStorage.getItem('tasks');
+    if(storedTasksString ?? undefined) {
+      const storedTasks: Task[] = JSON.parse(storedTasksString ?? '[]');
+      this.allTasks = [...storedTasks];
+    } else {
+      this.allTasks = DUMMY_TASKS.map((task) => ({
+        ...task,
+        completed: false,
+      }));
+    }
+  }
 
   getUserTasks(userId: string | undefined): Task[] {
     return this.allTasks.filter((task) => task.userId === userId);
@@ -21,9 +31,11 @@ export class TasksService {
 
   removeTask(deletedId: string): void {
     this.allTasks = this.allTasks.filter((task) => task.id !== deletedId);
+    localStorage.setItem('tasks', JSON.stringify(this.allTasks));
   }
 
   addTask(task: Task): void {
     this.allTasks = [...this.allTasks, task];
+    localStorage.setItem('tasks', JSON.stringify(this.allTasks));
   }
 }
