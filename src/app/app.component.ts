@@ -19,13 +19,11 @@ export class AppComponent {
     return this.usersService.getUsers();
   }
 
-  selected: string | undefined = undefined;
+  get selected(): string | undefined {
+    return this.usersService.getSelectedUserId();
+  }
 
   get selectedUser(): User | undefined {
     return this.usersService.getUserById(this.selected);
-  }
-
-  onSelected(selectedId: string): void {
-    this.selected = selectedId;
   }
 }

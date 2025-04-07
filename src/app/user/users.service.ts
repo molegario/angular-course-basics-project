@@ -10,6 +10,16 @@ export class UsersService {
     ...DUMMY_USERS
   ];
 
+  private selectedUserId: string | undefined = undefined;
+
+  getSelectedUserId(): string | undefined {
+    return this.selectedUserId;
+  }
+
+  setSelectedUserId(userId: string | undefined): void {
+    this.selectedUserId = userId;
+  }
+
   getUsers(): User[] {
     return [...this.users];
   }
