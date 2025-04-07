@@ -1,21 +1,17 @@
 <section id="tasks">
   @if(selectedUserName(); as selectedusername) {
-    <tasks-header [selectedUserName]="selectedusername"/>
-    @if (userTasks().length > 0) {
-      <ul>
-        @for (task of userTasks(); track task.id) {
-          <li>
-            <task-item 
-              [task]="task"
-              (completed)="onCompleted($event)"
-            />
-          </li>
-        }
-      </ul>
-    } @else {
-      <p id="fallback">No tasks found for this user</p>
+  <tasks-header [selectedUserName]="selectedusername" [selectedUserId]="selectedUserId()" (addtask)="onAddTask($event)"/>
+  @if (userTasks().length > 0) {
+  <ul>
+    @for (task of userTasks(); track task.id) {
+    <li>
+      <task-item [task]="task" (completed)="onCompleted($event)" />
+    </li>
     }
+  </ul>
   } @else {
-    <p id="fallback">Click on a user to see their tasks</p>
+  <p id="fallback">No tasks found for this user</p>
+  } } @else {
+  <p id="fallback">Click on a user to see their tasks</p>
   }
 </section>

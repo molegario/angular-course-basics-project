@@ -22,4 +22,7 @@ export class TaskslistComponent {
   onCompleted(deletedId: string) {
     this.allTasks.set(this.allTasks().filter(task => task.id !== deletedId));
   }
+  onAddTask(task: Task) {
+    this.allTasks.set([...this.allTasks(), task]);
+  }
 }
