@@ -2,15 +2,7 @@ import { Component, computed, input, signal, } from "@angular/core";
 import { TaskslistHeaderComponent } from "./tasksheader.component";
 import { TaskComponent } from "./task.component";
 import { DUMMY_TASKS } from "../../assets/dummy-tasks";
-
-export interface Task {
-  id: string;
-  userId: string;
-  title: string;
-  summary: string;
-  dueDate: string;
-  completed: boolean;
-}
+import { type Task } from "./task.model";
 
 @Component({
   selector: "tasks-list",

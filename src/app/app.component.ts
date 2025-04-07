@@ -1,8 +1,9 @@
 import { Component, computed, signal } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
-import { User, UserComponent } from './user/user.component';
+import { UserComponent } from './user/user.component';
 import { DUMMY_USERS } from '../assets/dummy-users';
 import { TaskslistComponent } from './taskslist/tasks.component';
+import { type User } from './user/user.model';
 
 @Component({
   selector: 'app-root',
