@@ -1,42 +1,35 @@
-import { Component, computed, input, output, } from "@angular/core";
-import { Task } from "./task.model";
+import { Component, computed, input, output, signal } from '@angular/core';
+import { Task } from './task.model';
+import { NewTaskComponent } from './newtask.component';
 
 @Component({
   selector: 'tasks-header',
   standalone: true,
-  imports: [],
+  imports: [NewTaskComponent],
   templateUrl: './tasksheader.component.html',
   styleUrls: ['./tasksheader.component.css'],
 })
 export class TaskslistHeaderComponent {
   selectedUserName = input.required<string>();
   selectedUserId = input.required<string | undefined>();
-  addtask = output<Task>();
   tasksTitle = computed(() => this.selectedUserName() + "'s Tasks");
-  opened: HTMLDialogElement | undefined;
-  addTask(event: SubmitEvent) {
-    event.preventDefault();
-    const formObject = event.target as HTMLFormElement;
-    const formData = new FormData(formObject);
-    // console.log("event name::", formData.get("taskName"));
-    // console.log("event description::", formData.get("taskSummary"));
-    // console.log("event date::", formData.get("taskDueDate"));
-    this.addtask.emit({
-      id: Math.random().toString(36).substring(2, 9),
-      title: formData.get('taskName') as string,
-      summary: formData.get('taskSummary') as string,
-      dueDate: formData.get('taskDueDate') as string,
-      userId: this.selectedUserId()!,
-      completed: false,
-    });
+  isAddingTask = signal(false);
 
-    if(this.opened) {
-      this.opened?.close();
-      formObject.reset();
-    }
+  addTaskRequested = output<Task>();
+
+  onStartAddTask() {
+    this.isAddingTask.set(true);
   }
-  openModal(modalRef: HTMLDialogElement) {
-    this.opened = modalRef;
-    modalRef.showModal();
+
+  onStopAddTask() {
+    this.isAddingTask.set(false);
   }
+
+  onAddTask(task: Task) {
+    this.addTaskRequested.emit(task);
+    // this.isAddingTask.set(false);
+  }
+
+
+
 }

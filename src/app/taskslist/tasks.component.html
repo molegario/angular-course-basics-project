@@ -1,6 +1,10 @@
 <section id="tasks">
   @if(selectedUserName(); as selectedusername) {
-  <tasks-header [selectedUserName]="selectedusername" [selectedUserId]="selectedUserId()" (addtask)="onAddTask($event)"/>
+  <tasks-header
+    [selectedUserName]="selectedusername"
+    [selectedUserId]="selectedUserId()"
+    (addTaskRequested)="onAddTask($event)"
+  />
   @if (userTasks().length > 0) {
   <ul>
     @for (task of userTasks(); track task.id) {

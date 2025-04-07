@@ -1,27 +1,15 @@
-<dialog #dialog>
-  <form #addForm (submit)="addTask($event)" method="dialog">
-    <h2>New Task</h2>
-    <p>
-      <label for="taskName">Task Name</label>
-      <input type="text" id="taskName" name="taskName" required>
-    </p>
-    <p>
-      <label for="taskDueDate">Task Due Date</label>
-      <input type="date" id="taskDueDate" name="taskDueDate" required>
-    </p>
-    <p>
-      <label for="taskSummary">Task Summary</label>
-      <textarea id="taskSummary" name="taskSummary" required></textarea>
-    </p>
-    <div class="actions">
-      <button type="submit">Add</button>
-      <button type="button" (click)="dialog.close()">Cancel</button>
-    </div>
-  </form>
-</dialog>
+@if (isAddingTask()) {
+<new-task
+  [selectedUserName]="selectedUserName()"
+  [selectedUserId]="selectedUserId()"
+  [modalIsOpened]="isAddingTask()"
+  (close)="onStopAddTask()"
+  (addtask)="onAddTask($event)"
+/>
+}
 <header>
   <h2>{{ tasksTitle() }}</h2>
   <menu>
-    <button (click)="openModal(dialog)">Add Task</button>
+    <button (click)="onStartAddTask()">Add Task</button>
   </menu>
 </header>

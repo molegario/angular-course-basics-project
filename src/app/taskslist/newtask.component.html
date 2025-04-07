@@ -1,6 +1,7 @@
-<dialog #dialog>
-  <form #addForm (submit)="addTask($event)" method="dialog">
-    <h2>New Task</h2>
+<div class="backdrop" (click)="onClose()"></div>
+<dialog [open]="modalIsOpened()" (close)="onClose()">
+  <form (submit)="addTask($event)" method="dialog">
+    <h2>New Task for {{ selectedUserName() }}</h2>
     <p>
       <label for="taskName">Task Name</label>
       <input type="text" id="taskName" name="taskName" required>
@@ -15,7 +16,7 @@
     </p>
     <div class="actions">
       <button type="submit">Add</button>
-      <button type="button" (click)="dialog.close()">Cancel</button>
+      <button type="button" (click)="onClose()">Cancel</button>
     </div>
   </form>
 </dialog>
