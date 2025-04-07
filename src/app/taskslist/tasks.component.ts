@@ -19,4 +19,7 @@ export class TaskslistComponent {
   selectedUserId = input.required<string | undefined>();
   selectedUserName = input.required<string | undefined>();
   userTasks = computed<Task[]>(() => this.allTasks().filter((task) => task.userId === this.selectedUserId()));
+  onCompleted(deletedId: string) {
+    this.allTasks.set(this.allTasks().filter(task => task.id !== deletedId));
+  }
 }

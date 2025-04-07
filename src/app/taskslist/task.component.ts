@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, output } from "@angular/core";
 import { type Task } from "./task.model";
 
 
@@ -10,4 +10,8 @@ import { type Task } from "./task.model";
 })
 export class TaskComponent {
   task = input.required<Task>();
+  completed = output<string>();
+  onClickedCompleted() {
+    this.completed.emit(this.task().id);
+  }
 }

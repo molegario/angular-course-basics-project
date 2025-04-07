@@ -10,10 +10,9 @@ import { type User } from './user.model';
 })
 export class UserComponent {
   user = input.required<User>();
-  selected = input.required<string | undefined>();
+  selected = input.required<boolean>();
   select = output<string>();
   imagePath = computed(() => 'assets/users/' + this.user().avatar);
-  btnClass = computed(() => (this.selected() === this.user().id ? 'active' : undefined));
 
   onSelectUser() {
     this.select.emit(this.user().id);
