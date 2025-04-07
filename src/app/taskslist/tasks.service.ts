@@ -1,12 +1,15 @@
-import { Task } from "./task.model";
-import { DUMMY_TASKS } from "../../assets/dummy-tasks";
-import { Injectable } from "@angular/core";
+import { Task } from './task.model';
+import { DUMMY_TASKS } from '../../assets/dummy-tasks';
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class TasksService {
-  private allTasks: Task[] = DUMMY_TASKS.map((task) => ({ ...task, completed: false }));
+  private allTasks: Task[] = DUMMY_TASKS.map((task) => ({
+    ...task,
+    completed: false,
+  }));
 
   getUserTasks(userId: string | undefined): Task[] {
     return this.allTasks.filter((task) => task.userId === userId);

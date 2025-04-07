@@ -1,5 +1,4 @@
 import { Component, Input, output, signal } from '@angular/core';
-import { Task } from './task.model';
 import { FormsModule } from '@angular/forms';
 import { TasksService } from './tasks.service';
 
